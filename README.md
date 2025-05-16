@@ -1,2 +1,394 @@
-# ---
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>رواية دمعة الثلج</title>
+<style>
+  body {
+    background: linear-gradient(135deg, #6a4a8f, #a08adf);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #eee;
+    margin: 0;
+    padding: 0;
+  }
+  header {
+    background-color: #553577;
+    padding: 1rem 2rem;
+    text-align: center;
+    font-size: 1.8rem;
+    font-weight: bold;
+    box-shadow: 0 0 15px #a08adf66;
+  }
+  nav {
+    background-color: #744caa;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    box-shadow: 0 0 12px #9068c9cc;
+  }
+  nav button {
+    background: #8b6cd1;
+    border: none;
+    padding: 0.6rem 1.3rem;
+    border-radius: 10px;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    box-shadow: 0 0 8px #c9b3ff99;
+  }
+  nav button:hover, nav button.active {
+    background: #b69fff;
+    color: #2a0746;
+    box-shadow: 0 0 14px #fff;
+  }
+  main {
+    max-width: 900px;
+    margin: 2rem auto;
+    background: rgba(85, 45, 130, 0.75);
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 0 25px #9e87ffcc;
+    min-height: 400px;
+    position: relative;
+    overflow-y: auto;
+  }
+  main h2 {
+    text-align: center;
+    margin-bottom: 1rem;
+    font-size: 2rem;
+    text-shadow: 0 0 10px #d5c8ff;
+  }
+  main p {
+    line-height: 1.7;
+    margin-bottom: 1rem;
+    font-size: 1.15rem;
+  }
+  /* التعليقات */
+  #comments-section {
+    margin-top: 2rem;
+    background: #5a3f99cc;
+    border-radius: 10px;
+    padding: 1rem;
+  }
+  #comments-section h3 {
+    margin-bottom: 0.5rem;
+    text-align: center;
+    color: #d7cfff;
+  }
+  #comments-list {
+    max-height: 150px;
+    overflow-y: auto;
+    margin-bottom: 1rem;
+    border: 1px solid #9e87ff88;
+    background: #744caa88;
+    padding: 0.5rem;
+    border-radius: 7px;
+  }
+  #comments-list p {
+    font-size: 0.95rem;
+    margin: 0.3rem 0;
+    border-bottom: 1px solid #9e87ff44;
+    padding-bottom: 0.2rem;
+  }
+  #comment-form textarea {
+    width: 100%;
+    resize: vertical;
+    min-height: 50px;
+    border-radius: 8px;
+    border: none;
+    padding: 0.6rem;
+    font-size: 1rem;
+  }
+  #comment-form button {
+    margin-top: 0.5rem;
+    background: #9a7fff;
+    border: none;
+    padding: 0.5rem 1.2rem;
+    color: #3a0d8c;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 0 10px #c9b3ffbb;
+    transition: background 0.3s ease;
+  }
+  #comment-form button:hover {
+    background: #c7a8ff;
+  }
+
+  /* التقييم */
+  #rating-section {
+    margin-top: 2rem;
+    text-align: center;
+  }
+  #rating-section span {
+    font-size: 2.4rem;
+    cursor: pointer;
+    color: #bbaaffaa;
+    transition: color 0.3s ease;
+  }
+  #rating-section span.hover,
+  #rating-section span.selected {
+    color: #ffdd33;
+    text-shadow: 0 0 8px #ffdd33cc;
+  }
+
+  /* اقتراحات */
+  #suggestion-section {
+    margin-top: 2rem;
+  }
+  #suggestion-section textarea {
+    width: 100%;
+    min-height: 50px;
+    border-radius: 8px;
+    border: none;
+    padding: 0.6rem;
+    font-size: 1rem;
+  }
+  #suggestion-section button {
+    margin-top: 0.5rem;
+    background: #a085ff;
+    border: none;
+    padding: 0.5rem 1.2rem;
+    color: #2d0c7a;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 0 10px #9c8effbb;
+    transition: background 0.3s ease;
+  }
+  #suggestion-section button:hover {
+    background: #c3b0ff;
+  }
+
+  /* أنميشن بسيط */
+  nav button {
+    animation: pulse 3s infinite ease-in-out;
+  }
+  nav button:hover {
+    animation-play-state: paused;
+  }
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 0 8px #c9b3ff99; }
+    50% { box-shadow: 0 0 18px #e3d6ffcc; }
+  }
+
+  /* scrollbar */
+  main::-webkit-scrollbar, #comments-list::-webkit-scrollbar {
+    width: 8px;
+  }
+  main::-webkit-scrollbar-thumb, #comments-list::-webkit-scrollbar-thumb {
+    background-color: #a288ffaa;
+    border-radius: 10px;
+  }
+
+</style>
+</head>
+<body>
+
+<header>رواية دمعة الثلج</header>
+
+<nav>
+  <button data-chapter="1" class="active">الفصل الأول</button>
+  <button data-chapter="2">الفصل الثاني</button>
+  <button data-chapter="3">الفصل الثالث</button>
+  <button data-chapter="4">الفصل الرابع</button>
+</nav>
+
+<main id="content">
+  <!-- محتوى الفصول يظهر هنا -->
+</main>
+
+<section id="comments-section">
+  <h3>التعليقات</h3>
+  <div id="comments-list"></div>
+  <form id="comment-form">
+    <textarea placeholder="اكتب تعليقك هنا..." required></textarea>
+    <button type="submit">إرسال تعليق</button>
+  </form>
+</section>
+
+<section id="rating-section" title="قيم الفصل">
+  <h3>التقييم</h3>
+  <span data-star="1">&#9733;</span>
+  <span data-star="2">&#9733;</span>
+  <span data-star="3">&#9733;</span>
+  <span data-star="4">&#9733;</span>
+  <span data-star="5">&#9733;</span>
+  <p id="rating-result"></p>
+</section>
+
+<section id="suggestion-section">
+  <h3>أرسل اقتراحك</h3>
+  <form id="suggestion-form">
+    <textarea placeholder="اكتب اقتراحك هنا..." required></textarea>
+    <button type="submit">إرسال الاقتراح</button>
+  </form>
+</section>
+
+<script>
+  const chapters = {
+    1: `
+      <h2>الفصل الأول: الأسطورة العتيقة</h2>
+      <p>كانت أسطورة قديمة تُتداول عبر الأجيال، تحدثت عن أميرة صغيرة من مملكة بعيدة في أقاصي الأرض. كانت تلك المملكة تقع بجوار جبل موجود على جزيرة غريبة، مليء بالمخاطر والأسرار التي لا حصر لها. كان يعرف عن هذا الجبل بأن هناك ثعبان قوياً يلقب بالحارس، ويقال أن هذا الجبل كلما صعدت وأصبحت أقرب للقمة أصبح الجو أكثر برودة وتزداد الوحوش قوة.</p>
+      <p>وظيفة الحارس حماية الجوهرة التي ترتبط بحياة الأميرة، التي في يوم ميلادها حدث ما لم يكن في الحسبان. عندما كان الجميع يحتفلون بميلادها، جاء شخص غريب إلى القصر الملكي وحاول دخول القاعة دون دعوة. ولأنه لم يُسمح له، فجر القنابل في أنحاء المملكة، ودمّر القصر وقتل الملك والملكة وجميع حراس المملكة، وقتل جميع سكانها بمساعدة عصابته ولكن استطاعت الأميرة النجاة.</p>
+      <p>هربت الأميرة إلى الجبل الغريب، لتختبئ في قمة جبل بعيد. وهناك، على أعلى قمة، ذرفت أول دمعة من عينيها، فتجمدت في الهواء وتحولت إلى جوهرة شفافة وسميت بدمعة الثلج وأصبحت محط اهتمام الجميع.</p>
+      <p>منذ ذلك الحين والشائعات تدور حول الجوهرة وعن مدى خطورة الوصول إليها وعن أن الكثير من المغامرين الذين حاولوا الوصول إليها لم يسمع عنهم خبر.</p>
+    `,
+    2: `
+      <h2>الفصل الثاني: فيلق العاصفة</h2>
+      <p>في أزمنة لاحقة، تم تشكيل فيلق العاصفة، وهو مجموعة من الأبطال المحاربين الذين كان لهم سمعة عظيمة في شجاعة وشراسة القتال. يتكون الفيلق من خمسة رجال مميزين، لكل منهم خلفيته وقدراته الخاصة:</p>
+      <ul>
+        <li><strong>رايان - القائد:</strong> هو الشخص الذي تولى قيادة الفيلق، وكان يمتلك سيفًا قديمًا، سيف توارثه من أسلافه. يحمل السيف سرًا غامضًا، إذ يحتوي على فجوة خاصة، إذ لا يعرف مغزاها.</li>
+        <li><strong>ألاريك - الحكيم:</strong> يتمتع بقدرة فذة على فهم الأساطير القديمة وتفسير الرموز، مما يجعل له دورًا كبيرًا في الرحلة ويفضل القتال باستخدام القوس. لديه معرفة واسعة بالكتب القديمة.</li>
+        <li><strong>لوكاس - المحارب:</strong> هو الأشرس في المعركة. يفضل القتال باستخدام مطرقته الضخمة التي تحطم كل شيء، وقد اجتاز العديد من المعارك والمواقف الصعبة بفضل قوته وشجاعته.</li>
+        <li><strong>إيفان - الصياد:</strong> بارع في البقاء على قيد الحياة في البرية. لديه قدرة غير عادية في الرماية ويفضل الرمح وصيد الحيوانات المفترسة. إنه يعتمد على استراتيجيات ذكية في المعركة.</li>
+        <li><strong>كاس - الظل:</strong> كان لصًا في الماضي، وقد تحول إلى عضو في الفيلق بسبب مهاراته الفائقة في الاختفاء والقتال السري يفضل القتال بالخنجر. كان أكثرهم مكرًا ودهاء.</li>
+      </ul>
+    `,
+    3: `
+      <h2>الفصل الثالث: رحلة مأساوية</h2>
+      <p>بدأ الفيلق رحلته فور تلقيه المهمة لأن الوصول إلى الجبل قد يحتاج مدة تستغرق ثلاث أيام ركبوا البحر كانت الرحلة في أفضل حال لكن في اليوم الثاني بدأت السفينة تهتز بشكل مريب.</p>
+      <p>صرخ رايان، قائد الفيلق: "توقفوا!"، وهو يشير إلى البحر أسفلهم هناك شيء ما غريب في الأسفل كما لو أنه حوت ضخم!"</p>
+      <p>وقف إيفان، الصياد الماهر، خلف قائد الفيلق، عيناه تتحركان بسرعة وهو يبحث عن أي حركة غير عادية أسفل البحر. وأشار إلى نقطة في المسافة البعيدة. "ثمة شيء يتحرك هناك، شيء ضخم… ليس من الوحوش المعتادة إنه حوت مهلاً أهذه أسنان كبيرة!"</p>
+      <p>في اللحظة التي تحدث فيها إيفان، بدأ الخوف يتسلل لقلوب الفيلق.</p>
+      <p>تحدث ألاريك: "إنه كائن غريب لم أرى له مثيل أسنانه حادة كأسنان القرش وحجم ضخم كحجم الحوت...يبدو أنه خصم صعب."</p>
+      <p>بدأ الكائن الغريب بالهجوم على المركب وأحدث به ثقوب بينما أمر رايان الفيلق بالهجوم وهو يشهر سيفه الحاد ويبدأ بالهجوم على العدو.</p>
+      <p>لوكاس، المحارب القوي، أسرع إلى الأمام وهو يمسك مطرقته الضخمة. "لا داعي للقلق، سأتولى أمرهم"!</p>
+      <p>لكن العدو كان أكثر قوة مما توقعوا. كل ضربة من لوكاس لم تُحدث سوى أثار بسيطة على جلد الوحش. بينما كان ألاريك، الحكيم، يواصل إلقاء السهام لصد الوحش، كان كاس يركض بسرعة في أرجاء المركب محاولاً العثور على نقطة ضعف الوحش.</p>
+      <p>قال إيفان: "لن نستطيع التصدي له إذا استمروا في الهجوم بهذه الطريقة. علينا أن نجد مخرجًا!"</p>
+      <p>ولكنها كانت لحظة صعبة، حيث كان الوحش يواصل إحداث الثقوب في السفينة، محاولاً إغراقها ونجح, لكن رايان أطلق هجوماً مدهشاً على الوحش استطاع فيه القضاء عليه ولكن بعد فوات الأوان فقد كانت السفينة تغرق بالفعل.</p>
+      <p>في النهاية، تم القضاء الوحش وتم إغراق السفينة لحسن الحظ جرى إنقاذ الجميع في زورق صغير وكان عليهم مواصلة رحلتهم مشياً على الأقدام عبر الجزيرة الغريبة.</p>
+    `,
+    4: `
+      <h2>الفصل الرابع: الغابة المظلمة والمستذئب</h2>
+      <p>بعد أن نجى الفيلق من غرق السفينة، بدأوا رحلتهم عبر الغابة المظلمة. كان الظلام يحيط بهم من كل جانب، والأشجار الكثيفة تحجب ضوء الشمس.</p>
+      <p>سمعوا أصواتاً غريبة تتردد بين الأشجار، وكان كل منهم يشعر بالخوف وعدم الاطمئنان.</p>
+      <p>فجأة، ظهر مستذئب ضخم، عيونه تتوهج باللون الأحمر، وبدأ يزأر بقوة. قام رايان بإمساك سيفه وتحضير نفسه للقتال.</p>
+      <p>بدأت معركة شرسة بين الفيلق والمستذئب، كان لوكاس يهاجم المخلوق بمطرقته، بينما ألاريك يطلق سهامه من بعيد، وكاس يتحرك بسرعة محاولاً تفادي هجمات الوحش.</p>
+      <p>في وسط المعركة، قام إيفان باستخدام رمحه ليصيب المستذئب في قلبه، مما أدى إلى هزيمة الوحش.</p>
+      <p>لكن لم يكن هذا نهاية الخطر، فقد علم الفيلق أن هناك أعداء أكثر ينتظرونهم في الغابة، وكان عليهم الاستعداد لما هو أسوأ.</p>
+    `
+  };
+
+  const contentDiv = document.getElementById('content');
+  const navButtons = document.querySelectorAll('nav button');
+  const commentsList = document.getElementById('comments-list');
+  const commentForm = document.getElementById('comment-form');
+  const commentTextarea = commentForm.querySelector('textarea');
+
+  // التعليقات مخزنة لكل فصل
+  const commentsData = {
+    1: [],
+    2: [],
+    3: [],
+    4: []
+  };
+
+  let currentChapter = 1;
+
+  // عرض محتوى الفصل
+  function showChapter(chapterNum) {
+    currentChapter = chapterNum;
+    contentDiv.innerHTML = chapters[chapterNum];
+
+    // تحديث أزرار الفصل النشطة
+    navButtons.forEach(btn => {
+      btn.classList.toggle('active', parseInt(btn.dataset.chapter) === chapterNum);
+    });
+
+    // عرض التعليقات الخاصة بالفصل
+    renderComments();
+
+    // إعادة تعيين التقييم والنص
+    clearRating();
+  }
+
+  // عرض التعليقات
+  function renderComments() {
+    commentsList.innerHTML = '';
+    if (commentsData[currentChapter].length === 0) {
+      commentsList.innerHTML = '<p>لا توجد تعليقات بعد. كن أول من يعلق!</p>';
+      return;
+    }
+    commentsData[currentChapter].forEach(c => {
+      const p = document.createElement('p');
+      p.textContent = c;
+      commentsList.appendChild(p);
+    });
+  }
+
+  // التعامل مع أزرار التنقل بين الفصول
+  navButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      showChapter(parseInt(btn.dataset.chapter));
+    });
+  });
+
+  // إرسال تعليق جديد
+  commentForm.addEventListener('submit', e => {
+    e.preventDefault();
+    const commentText = commentTextarea.value.trim();
+    if (commentText.length > 0) {
+      commentsData[currentChapter].push(commentText);
+      commentTextarea.value = '';
+      renderComments();
+    }
+  });
+
+  // التقييم بالنجوم
+  const stars = document.querySelectorAll('#rating-section span');
+  const ratingResult = document.getElementById('rating-result');
+  let selectedRating = 0;
+
+  stars.forEach(star => {
+    star.addEventListener('mouseenter', () => {
+      highlightStars(star.dataset.star);
+    });
+    star.addEventListener('mouseleave', () => {
+      highlightStars(selectedRating);
+    });
+    star.addEventListener('click', () => {
+      selectedRating = star.dataset.star;
+      ratingResult.textContent = `شكراً على تقييمك: ${selectedRating} من 5 نجوم`;
+      highlightStars(selectedRating);
+    });
+  });
+
+  function highlightStars(rating) {
+    stars.forEach(star => {
+      star.classList.toggle('hover', star.dataset.star <= rating);
+      star.classList.toggle('selected', star.dataset.star <= rating);
+    });
+  }
+
+  function clearRating() {
+    selectedRating = 0;
+    ratingResult.textContent = '';
+    highlightStars(0);
+  }
+
+  // الاقتراحات
+  const suggestionForm = document.getElementById('suggestion-form');
+  const suggestionTextarea = suggestionForm.querySelector('textarea');
+
+  suggestionForm.addEventListener('submit', e => {
+    e.preventDefault();
+    const suggestionText = suggestionTextarea.value.trim();
+    if (suggestionText.length > 0) {
+      alert('شكرًا على اقتراحك! سنقوم بمراجعته قريباً.');
+      suggestionTextarea.value = '';
+    }
+  });
+
+  // عرض أول فصل عند التحميل
+  showChapter(1);
+
+</script>
+
+</body>
+</html>
 راوية 
